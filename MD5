@@ -1,6 +1,7 @@
-40ec5cc98022adbb5f38e1c094589c54 *DESCRIPTION
-8eb51c23d34a04ec6dcfa282d3d4df40 *NAMESPACE
+b700d3fc1f140a7d74a36527ec9353d6 *DESCRIPTION
+e9d2c23d7c02906038553e2b648b35e3 *NAMESPACE
 fce687caebc6c398aac78f699aacee4c *R/average.R
+14f9921a065a6c89e83b9ec36d9d3152 *R/code.R
 bc5edcd3407871997d8c7bf85fe459d8 *R/mxmax.R
 aeed01e6baebc14de102c7b975c3b92b *R/mxmedian.R
 8b2e6cf4dbe209c5096368aa5ee5be72 *R/mxmin.R
@@ -14,12 +15,13 @@ f24d08f5e445c6ac16a1b380c4d0a5ab *R/mxsum.R
 d15f5e55099fcbc528c0ab6dc33b0909 *R/pvformat.R
 1b1b16cb057d87cd00aa3ebfa3c132f4 *R/rankvar.R
 fae923184fa8a11f4b2e0b40ad4e83e2 *R/sci1freq.R
-fc18b7076641b29226bd635e0cabfbf9 *R/sci1mean.R
-984630b035d9f2d972f673b85dc6d70d *R/scitb1.R
+5fe72c61d5d4ead57ebcc37263408215 *R/sci1mean.R
+6d3d018f1a74993427f0fd4171383459 *R/scitb1.R
 7cc10365cc78d0a68dbd7bfa81e2f58c *R/stderr.R
 40690ca33c512c9bc502aa1532a16c9a *R/stdev.R
+f83125e47b01e5de76faa059a08eae6d *README.md
 aa2e21fe1be0564b53ca77e236770919 *data/prematurity.rda
 4a30cdd4090b22d83999255eb1ecfc69 *man/prematurity.Rd
 733cb4bad4a76de310f7b1567cd11b54 *man/sci1freq.Rd
-94689495bb2aba9d9dd5cad82d74f813 *man/sci1mean.Rd
-29031ce49671e2a9d43edfeed0e4f0ca *man/scitb1.Rd
+8302ed245b0a84f269337ab49e969bd6 *man/sci1mean.Rd
+b9448199930c3b91243cfbdb58627ec3 *man/scitb1.Rd

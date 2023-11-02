@@ -14,7 +14,8 @@
 #'@param data Enter your data.
 #'@param dec The precision of the data, which defaults to 2 decimal places.
 #'@param nonnormal When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.
-#'
+#'@param type The type of encoding generally does not require input.
+#'@importFrom "stringi" "stri_escape_unicode" "stri_escape_unicode"
 #'@return A data frame.
 
 utils::globalVariables(c('aov',
@@ -24,17 +25,15 @@ utils::globalVariables(c('aov',
 
 
 
-sci1mean<- function(mvars,x,data,dec,nonnormal=NULL) {
-  mvars<-mvars;x<-x;data<-data;nonnormal<-nonnormal
+sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL) {
+  mvars<-mvars;x<-x;data<-data;nonnormal<-nonnormal;type<-type
   if (missing(dec)) {dec<-2} else {dec<-dec}
   xvt<-data[,x];nc<-length(mvars);varsdt<-data[,mvars];
   if (nc==1) varsdt<-as.matrix(varsdt,ncol=nc)
   n.x<-length(levels(factor(xvt)));
   queshiliebiao<-is.na(cbind(xvt,varsdt))
   pp<-NULL; st.diff<-NULL;d0<-NULL
-  a<-as.raw (as.hexmode ("a1"))
-  b<-as.raw (as.hexmode ("c0"))
-  xxx<-c(a,b)
+  jia<-code(type=type)
   for (i in (1:nc)) {
     scimean<-tapply(varsdt[,i],factor(xvt),average)
     scistd<-tapply(varsdt[,i],factor(xvt),stdev)
@@ -44,7 +43,7 @@ sci1mean<- function(mvars,x,data,dec,nonnormal=NULL) {
     scimax<-numfmt(tapply(varsdt[,i],factor(xvt),mxmax),dec)
     sciq1<-numfmt(tapply(varsdt[,i],factor(xvt),mxq1),dec)
     sciq3<-numfmt(tapply(varsdt[,i],factor(xvt),mxq3),dec)
-    scitmp<-xvt[apply(queshiliebiao[,c(1,i+1)],1,sum)==0]
+    scitmp<-xvt[apply(queshiliebiao[,c(1,i+1)],1,sum)==0]  #取没有缺失的数据
     if (length(levels(factor(scitmp)))>1) {
       pvalue<-summary(aov(varsdt[,i]~factor(xvt)))[[1]]$"Pr(>F)"[1]
       pp1<-ifelse(pvalue<0.001, "<0.001",pvformat(pvalue,3))
@@ -53,7 +52,7 @@ sci1mean<- function(mvars,x,data,dec,nonnormal=NULL) {
       pvalue.npr<-kruskal.test(varsdt[,i]~factor(xvt))$p.value
       pp1.npr<-ifelse(pvalue.npr<0.001, "<0.001",pvformat(pvalue.npr,3))}
     if (!mvars[i] %in% nonnormal) {
-      d1<-paste(numfmt(scimean,dec),rawToChar(xxx),numfmt(scistd,dec),sep="")
+      d1<-paste(numfmt(scimean,dec),jia,numfmt(scistd,dec),sep="")
       p<-pp1
     }
     if (mvars[i] %in% nonnormal) {

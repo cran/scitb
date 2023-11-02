@@ -17,6 +17,8 @@
 \item{num}{When continuous variables are layered, use it to control the number of layers, which defaults to 3.}
 
 \item{nonnormal}{When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.}
+
+\item{type}{The type of encoding generally does not require input.}
 }
 \value{
 A data frame.

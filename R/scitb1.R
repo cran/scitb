@@ -17,7 +17,7 @@
 #'@param dec The precision of the data, which defaults to 2 decimal places.
 #'@param num When continuous variables are layered, use it to control the number of layers, which defaults to 3.
 #'@param nonnormal When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.
-#'
+#'@param type The type of encoding generally does not require input.
 #'@return A data frame.
 #'
 #'
@@ -46,13 +46,14 @@
 
 
 
-scitb1<-function(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL) {
+scitb1<-function(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL) {
   if (missing(vars)) {stop("Missing vars.")}
   if (missing(strata)) {stop("Missing strata.")}
   if (missing(data)) {stop("Missing data.")}
   vars<-vars;fvars<-fvars;data<-data;nonnormal<-nonnormal;
   if (missing(dec)) {dec<-2} else {dec<-dec}
   if (missing(num)) {num<-3} else {num<-num}
+  if (missing(type)) {type<-"A"} else {type<-type}
   strata<-strata
   if (!is.factor(data[,strata]) | length(levels(factor(data[,strata]))) >5 ) {
     G<-rankvar(data[,strata],num=num)
@@ -66,11 +67,11 @@ scitb1<-function(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL) {
       dat<-fout
     } else {
       fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec)
-      mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec)
+      mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,type=type)
       dat<-rbind(mout,fout)
     }
   } else {
-    mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec)
+    mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,type=type)
     dat<-mout
   }
   dat

@@ -13,6 +13,8 @@
 \item{dec}{The precision of the data, which defaults to 2 decimal places.}
 
 \item{nonnormal}{When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.}
+
+\item{type}{The type of encoding generally does not require input.}
 }
 \value{
 A data frame.
