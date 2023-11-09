@@ -3,6 +3,10 @@
 \name{scitb1}
 \alias{scitb1}
 \title{scitb1}
+\usage{
+scitb1(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
+statistic=F,atotest=T,NormalTest=NULL)
+}
 \arguments{
 \item{vars}{The full range of variables you don't want to compare.}
 
@@ -18,7 +22,13 @@
 
 \item{nonnormal}{When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.}
 
-\item{type}{The type of encoding generally does not require input.}
+\item{type}{The type of encoding generally does not require input.Contains three types: "A", "B", and "C".}
+
+\item{statistic}{Statistical effect values. Usually, it is the default F, and selecting T will return a statistical effect value.}
+
+\item{atotest}{Check if the data is normally distributed. The default is T.}
+
+\item{NormalTest}{A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".}
 }
 \value{
 A data frame.
@@ -43,6 +53,7 @@ allVars <-c("age", "lwt",  "smoke", "ptl", "ht", "ui", "ftv", "bwt")
 fvars<-c("smoke","ht","ui")
 strata<-"race"
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
+out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
 print(out)
 
 ###Stratified variables are continuous variables.
@@ -50,5 +61,6 @@ allVars <-c("race", "lwt",  "smoke", "ptl", "ht", "ui", "ftv", "bwt")
 fvars<-c("smoke","ht","ui","race")
 strata<-"age"
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
+out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
 print(out)
 }

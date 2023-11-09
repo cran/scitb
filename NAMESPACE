@@ -2,3 +2,4 @@
 
 export(scitb1)
 importFrom("stringi","stri_escape_unicode")
+importFrom(nortest,sf.test)

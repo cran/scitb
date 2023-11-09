@@ -17,12 +17,18 @@
 #'@param dec The precision of the data, which defaults to 2 decimal places.
 #'@param num When continuous variables are layered, use it to control the number of layers, which defaults to 3.
 #'@param nonnormal When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.
-#'@param type The type of encoding generally does not require input.
+#'@param type The type of encoding generally does not require input.Contains three types: "A", "B", and "C".
+#'@param statistic Statistical effect values. Usually, it is the default F, and selecting T will return a statistical effect value.
+#'@param atotest Check if the data is normally distributed. The default is T.
+#'@param NormalTest A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".
+#'
+#'
 #'@return A data frame.
 #'
 #'
 #'@format NULL
-#'@usage NULL
+#'@usage scitb1(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
+#'statistic=F,atotest=T,NormalTest=NULL)
 #'@export
 #'@examples
 #'## Import data
@@ -34,6 +40,7 @@
 #'fvars<-c("smoke","ht","ui")
 #'strata<-"race"
 #'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
+#'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
 #'print(out)
 #'
 #'###Stratified variables are continuous variables.
@@ -41,37 +48,42 @@
 #'fvars<-c("smoke","ht","ui","race")
 #'strata<-"age"
 #'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
+#'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
 #'print(out)
 
 
 
 
-scitb1<-function(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL) {
+scitb1<-function(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
+                 statistic=F,atotest=T,NormalTest=NULL) {
   if (missing(vars)) {stop("Missing vars.")}
   if (missing(strata)) {stop("Missing strata.")}
   if (missing(data)) {stop("Missing data.")}
-  vars<-vars;fvars<-fvars;data<-data;nonnormal<-nonnormal;
+  vars<-vars;fvars<-fvars;data<-as.data.frame(data);nonnormal<-nonnormal;
   if (missing(dec)) {dec<-2} else {dec<-dec}
   if (missing(num)) {num<-3} else {num<-num}
   if (missing(type)) {type<-"A"} else {type<-type}
-  strata<-strata
-  if (!is.factor(data[,strata]) | length(levels(factor(data[,strata]))) >5 ) {
+  strata<-strata;NormalTest<-NormalTest;statistic<-statistic;atotest<-atotest
+  if (!is.factor(data[,strata]) & length(levels(factor(data[,strata]))) >5 ) {
     G<-rankvar(data[,strata],num=num)
     data$G<-G
     strata<-"G"
+    message("Strata is treated as a continuous variable.")
   }
   mvars<-setdiff(vars, fvars)
   if (!is.null(fvars)) {
     if (identical(vars,fvars)) {
-      fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec)
+      fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,statistic=statistic)
       dat<-fout
     } else {
-      fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec)
-      mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,type=type)
+      fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,statistic=statistic)
+      mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,
+                     type=type,statistic=statistic,atotest=atotest,NormalTest=NormalTest)
       dat<-rbind(mout,fout)
     }
   } else {
-    mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,type=type)
+    mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,type=type,
+                   statistic=statistic,atotest=atotest,NormalTest=NormalTest)
     dat<-mout
   }
   dat

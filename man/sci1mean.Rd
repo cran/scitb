@@ -15,6 +15,12 @@
 \item{nonnormal}{When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.}
 
 \item{type}{The type of encoding generally does not require input.}
+
+\item{statistic}{Statistical effect values. Usually, it is the default F, and selecting T will return a statistical effect value.}
+
+\item{atotest}{Check if the data is normally distributed. The default is T.}
+
+\item{NormalTest}{A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".}
 }
 \value{
 A data frame.

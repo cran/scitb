@@ -13,6 +13,8 @@
 \item{dec}{The precision of the data, which defaults to 2 decimal places.}
 
 \item{nonnormal}{When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.}
+
+\item{statistic}{Statistical effect values. Usually, it is the default F, and selecting T will return a statistical effect value.}
 }
 \value{
 A data frame.

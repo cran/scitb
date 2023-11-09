@@ -1,7 +1,7 @@
 Package: scitb
 Type: Package
 Title: Provides Some Useful Functions for Making Statistical Tables
-Version: 0.1.2
+Version: 0.1.5
 Authors@R: person("Qiang", "Liu", email = "dege857@163.com",
                   role = c("aut", "cre"))
 Maintainer: Qiang Liu <dege857@163.com>
@@ -14,11 +14,11 @@ Description: You can use the functions provided by the package to make various s
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Depends: R (>= 2.10)
+Depends: R (>= 3.50)
 RoxygenNote: 7.2.1
-Imports: stringi
+Imports: nortest, stringi
 NeedsCompilation: no
-Packaged: 2023-11-02 01:15:47 UTC; Administrator
+Packaged: 2023-11-09 02:04:56 UTC; Administrator
 Author: Qiang Liu [aut, cre]
 Repository: CRAN
-Date/Publication: 2023-11-02 05:10:02 UTC
+Date/Publication: 2023-11-09 06:20:02 UTC
