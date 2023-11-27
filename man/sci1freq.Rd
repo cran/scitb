@@ -15,6 +15,12 @@
 \item{nonnormal}{When the data belongs to a non-normal distribution, this parameter is needed to indicate which is variable is non-normally distributed.}
 
 \item{statistic}{Statistical effect values. Usually, it is the default F, and selecting T will return a statistical effect value.}
+
+\item{fisher}{Fisher's exact test. The default is FALSE.}
+
+\item{correct}{Chi square test for continuity correction.The default is FALSE.}
+
+\item{Overall}{Generate summary data.The default is FALSE.}
 }
 \value{
 A data frame.

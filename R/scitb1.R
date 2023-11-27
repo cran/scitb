@@ -21,14 +21,16 @@
 #'@param statistic Statistical effect values. Usually, it is the default F, and selecting T will return a statistical effect value.
 #'@param atotest Check if the data is normally distributed. The default is T.
 #'@param NormalTest A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".
-#'
+#'@param fisher Fisher's exact test. The default is FALSE.
+#'@param correct Chi square test for continuity correction.The default is FALSE.
+#'@param Overall Generate summary data.The default is FALSE.
 #'
 #'@return A data frame.
 #'
 #'
 #'@format NULL
 #'@usage scitb1(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
-#'statistic=F,atotest=T,NormalTest=NULL)
+#'statistic=F,atotest=T,NormalTest=NULL,fisher=FALSE,correct=FALSE,Overall=FALSE)
 #'@export
 #'@examples
 #'## Import data
@@ -41,6 +43,7 @@
 #'strata<-"race"
 #'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
 #'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
+#'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE,Overall=TRUE)
 #'print(out)
 #'
 #'###Stratified variables are continuous variables.
@@ -49,13 +52,15 @@
 #'strata<-"age"
 #'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
 #'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
+#'out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE,Overall=TRUE)
 #'print(out)
+#'
 
 
 
 
 scitb1<-function(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
-                 statistic=F,atotest=T,NormalTest=NULL) {
+                 statistic=F,atotest=T,NormalTest=NULL,fisher=FALSE,correct=FALSE,Overall=FALSE) {
   if (missing(vars)) {stop("Missing vars.")}
   if (missing(strata)) {stop("Missing strata.")}
   if (missing(data)) {stop("Missing data.")}
@@ -63,7 +68,8 @@ scitb1<-function(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
   if (missing(dec)) {dec<-2} else {dec<-dec}
   if (missing(num)) {num<-3} else {num<-num}
   if (missing(type)) {type<-"A"} else {type<-type}
-  strata<-strata;NormalTest<-NormalTest;statistic<-statistic;atotest<-atotest
+  strata<-strata;NormalTest<-NormalTest;statistic<-statistic;
+  atotest<-atotest;correct<-correct;Overall<-Overall;fisher<-fisher
   if (!is.factor(data[,strata]) & length(levels(factor(data[,strata]))) >5 ) {
     G<-rankvar(data[,strata],num=num)
     data$G<-G
@@ -73,17 +79,19 @@ scitb1<-function(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
   mvars<-setdiff(vars, fvars)
   if (!is.null(fvars)) {
     if (identical(vars,fvars)) {
-      fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,statistic=statistic)
+      fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,
+                     statistic=statistic,correct=correct,Overall=Overall,fisher=fisher)
       dat<-fout
     } else {
-      fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,statistic=statistic)
+      fout<-sci1freq(mvars=fvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,
+                     statistic=statistic,correct=correct,Overall=Overall,fisher=fisher)
       mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,
-                     type=type,statistic=statistic,atotest=atotest,NormalTest=NormalTest)
+                     type=type,statistic=statistic,atotest=atotest,NormalTest=NormalTest,Overall=Overall)
       dat<-rbind(mout,fout)
     }
   } else {
     mout<-sci1mean(mvars=mvars,x=strata,data=data,nonnormal=nonnormal,dec=dec,type=type,
-                   statistic=statistic,atotest=atotest,NormalTest=NormalTest)
+                   statistic=statistic,atotest=atotest,NormalTest=NormalTest,Overall=Overall)
     dat<-mout
   }
   dat

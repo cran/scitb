@@ -19,6 +19,7 @@
 #'@param atotest Check if the data is normally distributed. The default is T.
 #'@param NormalTest A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".
 #'@importFrom "stringi" "stri_escape_unicode" "stri_escape_unicode"
+#'@param Overall Generate summary data.The default is FALSE.
 #'
 #'@return A data frame.
 
@@ -29,26 +30,35 @@ utils::globalVariables(c('aov',
 
 
 
-sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,atotest=NULL,NormalTest=NULL) {
+sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,
+                    atotest=NULL,NormalTest=NULL,Overall=NULL) {
   mvars<-mvars;x<-x;data<-data;nonnormal<-nonnormal;type<-type
-  NormalTest<-NormalTest
+  NormalTest<-NormalTest;Overall<-Overall
   if (missing(dec)) {dec<-2} else {dec<-dec}
   xvt<-data[,x];nc<-length(mvars);varsdt<-data[,mvars];
   if (nc==1) varsdt<-as.matrix(varsdt,ncol=nc)
   n.x<-length(levels(factor(xvt)));
   queshiliebiao<-is.na(cbind(xvt,varsdt))
-  pp<-NULL; st.diff<-NULL;d0<-NULL;sv<-NULL
+  pp<-NULL; st.diff<-NULL;d0<-NULL;sv<-NULL;o.dd<-NULL
   jia<-code(type=type)
   ntp<-999
   for (i in (1:nc)) {
     scimean<-tapply(varsdt[,i],factor(xvt),average)
+    o.mean<-average(varsdt[,i])
     scistd<-tapply(varsdt[,i],factor(xvt),stdev)
+    o.st<-stdev(varsdt[,i])
     scinn<-table(xvt[!is.na(varsdt[,i])])
+    o.n<-length(!is.na(varsdt[,i]))
     scimedian<-numfmt(tapply(varsdt[,i],factor(xvt),mxmedian),dec)
+    o.median<-numfmt(mxmedian(varsdt[,i]),dec)
     scimin<-numfmt(tapply(varsdt[,i],factor(xvt),mxmin),dec)
+    o.min<-numfmt(mxmin(varsdt[,i]),dec)
     scimax<-numfmt(tapply(varsdt[,i],factor(xvt),mxmax),dec)
+    o.max<-numfmt(mxmax(varsdt[,i]),dec)
     sciq1<-numfmt(tapply(varsdt[,i],factor(xvt),mxq1),dec)
+    o.q1<-numfmt(mxq1(varsdt[,i]),dec)
     sciq3<-numfmt(tapply(varsdt[,i],factor(xvt),mxq3),dec)
+    o.q3<-numfmt(mxq3(varsdt[,i]),dec)
     if (atotest==T) {ntp<-nt(varsdt[,i],kind = NormalTest)}
     scitmp<-xvt[apply(queshiliebiao[,c(1,i+1)],1,sum)==0]  #取没有缺失的数据
     if (length(levels(factor(scitmp)))>1) {
@@ -62,27 +72,38 @@ sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,ato
     }
     if (!mvars[i] %in% nonnormal) {
       d1<-paste(numfmt(scimean,dec),jia,numfmt(scistd,dec),sep="")
+      o.d<-paste(numfmt(o.mean,dec),jia,numfmt(o.st,dec),sep="")
       p<-pp1;sv0<-sv1
     }
     if (ntp<0.05) {
       d1<-paste(scimedian," (",sciq1,"-",sciq3,")",sep="")
+      o.d<-paste(o.median," (",o.q1,"-",o.q3,")",sep="")
       p<-pp1.npr;sv0<-sv1.npr
     }
     if (mvars[i] %in% nonnormal) {
       d1<-paste(scimedian," (",sciq1,"-",sciq3,")",sep="")
+      o.d<-paste(o.median," (",o.q1,"-",o.q3,")",sep="")
       p<-pp1.npr;sv0<-sv1.npr
     }
-    d0<-rbind(d0,d1);pp<-rbind(pp,p);sv<-rbind(sv,sv0)
+    d0<-rbind(d0,d1);pp<-rbind(pp,p);sv<-rbind(sv,sv0);o.dd<-rbind(o.dd,o.d)
   }
-  dd<-rbind(scinn,d0)
-  tmp.cname<-paste(x,".",levels(factor(xvt)),sep="")
+  varnames<-paste(x,".",levels(factor(xvt)),sep="")
+  if (Overall==FALSE) {
+    dd<-rbind(scinn,d0)
+  } else if (Overall==TRUE) {
+    d0<-cbind(o.dd,d0)
+    scinn<-c(o.n,scinn)
+    dd<-rbind(scinn,d0)
+    varnames<-c("Overall",varnames)
+  } else {
+    stop("Overall can only be FALSE or TRUE")
+  }
   if (statistic==T) {
     dd1<-cbind(dd,c("",sv),c("",pp))
+    varnames<-c(varnames,"statistical value")
   } else {dd1<-cbind(dd,c("",pp))}
   dd2<-cbind(c("N",mvars),dd1)
-  if (statistic==T) {
-    colnames(dd2)<-c("Characteristic",tmp.cname,"statistical value","p value")
-  } else {colnames(dd2)<-c("Characteristic",tmp.cname,"p value")}
+  colnames(dd2)<-c("Characteristic",varnames,"p value")
   dd2
 }
 

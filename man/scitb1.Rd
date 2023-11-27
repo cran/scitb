@@ -5,7 +5,7 @@
 \title{scitb1}
 \usage{
 scitb1(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
-statistic=F,atotest=T,NormalTest=NULL)
+statistic=F,atotest=T,NormalTest=NULL,fisher=FALSE,correct=FALSE,Overall=FALSE)
 }
 \arguments{
 \item{vars}{The full range of variables you don't want to compare.}
@@ -29,6 +29,12 @@ statistic=F,atotest=T,NormalTest=NULL)
 \item{atotest}{Check if the data is normally distributed. The default is T.}
 
 \item{NormalTest}{A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".}
+
+\item{fisher}{Fisher's exact test. The default is FALSE.}
+
+\item{correct}{Chi square test for continuity correction.The default is FALSE.}
+
+\item{Overall}{Generate summary data.The default is FALSE.}
 }
 \value{
 A data frame.
@@ -54,6 +60,7 @@ fvars<-c("smoke","ht","ui")
 strata<-"race"
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
+out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE,Overall=TRUE)
 print(out)
 
 ###Stratified variables are continuous variables.
@@ -62,5 +69,7 @@ fvars<-c("smoke","ht","ui","race")
 strata<-"age"
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
+out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE,Overall=TRUE)
 print(out)
+
 }

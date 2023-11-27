@@ -21,6 +21,8 @@
 \item{atotest}{Check if the data is normally distributed. The default is T.}
 
 \item{NormalTest}{A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".}
+
+\item{Overall}{Generate summary data.The default is FALSE.}
 }
 \value{
 A data frame.
