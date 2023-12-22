@@ -20,6 +20,7 @@
 #'@param NormalTest A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".
 #'@importFrom "stringi" "stri_escape_unicode" "stri_escape_unicode"
 #'@param Overall Generate summary data.The default is FALSE.
+#'@param smd The default is FALSE. If it is true, return the SMD value.
 #'
 #'@return A data frame.
 
@@ -31,7 +32,7 @@ utils::globalVariables(c('aov',
 
 
 sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,
-                    atotest=NULL,NormalTest=NULL,Overall=NULL) {
+                    atotest=NULL,NormalTest=NULL,Overall=NULL,smd=NULL) {
   mvars<-mvars;x<-x;data<-data;nonnormal<-nonnormal;type<-type
   NormalTest<-NormalTest;Overall<-Overall
   if (missing(dec)) {dec<-2} else {dec<-dec}
@@ -39,7 +40,7 @@ sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,
   if (nc==1) varsdt<-as.matrix(varsdt,ncol=nc)
   n.x<-length(levels(factor(xvt)));
   queshiliebiao<-is.na(cbind(xvt,varsdt))
-  pp<-NULL; st.diff<-NULL;d0<-NULL;sv<-NULL;o.dd<-NULL
+  pp<-NULL; st.diff<-NULL;d0<-NULL;sv<-NULL;o.dd<-NULL;o.smd<-NULL
   jia<-code(type=type)
   ntp<-999
   for (i in (1:nc)) {
@@ -59,6 +60,8 @@ sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,
     o.q1<-numfmt(mxq1(varsdt[,i]),dec)
     sciq3<-numfmt(tapply(varsdt[,i],factor(xvt),mxq3),dec)
     o.q3<-numfmt(mxq3(varsdt[,i]),dec)
+    smds<-sciStdDiff(variable = varsdt[,i], group = factor(xvt))
+    smds<-numfmt(mean(smds),3)
     if (atotest==T) {ntp<-nt(varsdt[,i],kind = NormalTest)}
     scitmp<-xvt[apply(queshiliebiao[,c(1,i+1)],1,sum)==0]  #取没有缺失的数据
     if (length(levels(factor(scitmp)))>1) {
@@ -85,7 +88,7 @@ sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,
       o.d<-paste(o.median," (",o.q1,"-",o.q3,")",sep="")
       p<-pp1.npr;sv0<-sv1.npr
     }
-    d0<-rbind(d0,d1);pp<-rbind(pp,p);sv<-rbind(sv,sv0);o.dd<-rbind(o.dd,o.d)
+    d0<-rbind(d0,d1);pp<-rbind(pp,p);sv<-rbind(sv,sv0);o.dd<-rbind(o.dd,o.d);o.smd<-rbind(o.smd,smds)
   }
   varnames<-paste(x,".",levels(factor(xvt)),sep="")
   if (Overall==FALSE) {
@@ -102,9 +105,16 @@ sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,
     dd1<-cbind(dd,c("",sv),c("",pp))
     varnames<-c(varnames,"statistical value")
   } else {dd1<-cbind(dd,c("",pp))}
+  if (smd==T) {
+    dd1<-cbind(dd1,c("",o.smd))
+  }
   dd2<-cbind(c("N",mvars),dd1)
-  colnames(dd2)<-c("Characteristic",varnames,"p value")
-  dd2
+  if (smd==T) {
+    colnames(dd2)<-c("Characteristic",varnames,"p value","smd")
+  } else {colnames(dd2)<-c("Characteristic",varnames,"p value")
+  }
+  out1<-list(data=dd2,smd=o.smd)
+  out1
 }
 
 

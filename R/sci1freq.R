@@ -18,6 +18,7 @@
 #'@param fisher Fisher's exact test. The default is FALSE.
 #'@param correct Chi square test for continuity correction.The default is FALSE.
 #'@param Overall Generate summary data.The default is FALSE.
+#'@param smd The default is FALSE. If it is true, return the SMD value.
 #'@importFrom  "stats" "fisher.test"
 #'
 #'@return A data frame.
@@ -27,7 +28,7 @@ utils::globalVariables(c('chisq.test'
 
 
 sci1freq<- function(mvars,x,data,dec,nonnormal=NULL,statistic=NULL,fisher=NULL,
-                    correct=NULL,Overall=NULL) {
+                    correct=NULL,Overall=NULL,smd=NULL) {
   options(warn=-1)
   mvars<-mvars;x<-x;data<-data;nonnormal<-nonnormal
   fisher<-fisher;correct<-correct;Overall<-Overall
@@ -36,7 +37,7 @@ sci1freq<- function(mvars,x,data,dec,nonnormal=NULL,statistic=NULL,fisher=NULL,
   if (nc==1) varsdt<-as.matrix(varsdt,ncol=nc)
   n.x<-length(levels(factor(xvt)));
   queshiliebiao<-is.na(cbind(xvt,varsdt))
-  pp<-NULL; st.diff<-NULL;d<-NULL;sv<-NULL
+  pp<-NULL; st.diff<-NULL;d<-NULL;sv<-NULL;o.smd<-NULL
   for (i in (1:nc)) {
     t1<-table(varsdt[,i],factor(xvt),useNA="no")
     Overall.t1<-table(varsdt[,i],useNA="no")
@@ -56,6 +57,9 @@ sci1freq<- function(mvars,x,data,dec,nonnormal=NULL,statistic=NULL,fisher=NULL,
     }
     p1<-prop.table(t1,2)
     Overall.p1<-Overall.t1/length(varsdt[,i])
+    smds<-sciStdDiffMulti(variable = varsdt[,i], group = factor(xvt))
+    smds<-pvformat(mean(smds),3)
+    o.smd<-rbind(o.smd,smds)
     tb1<-matrix(paste(format(t1)," (", numfmt(p1*100,dec), "%)", sep=""),nrow=nrow(t1))
     Overall.tb1<-matrix(paste(format(Overall.t1)," (", numfmt(Overall.p1*100,dec), "%)", sep=""),
                         nrow=nrow(Overall.p1))
@@ -74,10 +78,19 @@ sci1freq<- function(mvars,x,data,dec,nonnormal=NULL,statistic=NULL,fisher=NULL,
     } else if (statistic==T){
       d2<-c(mvars[i],rep(" ",times=n.x),sv1,pp1)
     } else {d2<-c(mvars[i],rep(" ",times=n.x),pp1)}
+    if (smd==T) {
+      n.f<-length(levels(factor(varsdt[,i])))
+      d2<-c(d2,smds)
+      d1<-cbind(d1,rep(" ",times=n.f))
+    }
     d0<-rbind(d2,d1)
     d<-rbind(d,d0)
   }
-  colnames(d)<-c("Characteristic",varnames,"p value")
-  d
+  if (smd==T) {
+    colnames(d)<-c("Characteristic",varnames,"p value","smd")
+  } else {
+    colnames(d)<-c("Characteristic",varnames,"p value")
+  }
+  out1<-list(data=d,smd=o.smd)
+  out1
 }
-

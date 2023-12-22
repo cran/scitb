@@ -5,7 +5,7 @@
 \title{scitb1}
 \usage{
 scitb1(vars,fvars=NULL,strata,data,dec,num,nonnormal=NULL,type=NULL,
-statistic=F,atotest=T,NormalTest=NULL,fisher=FALSE,correct=FALSE,Overall=FALSE)
+statistic=F,atotest=T,NormalTest=NULL,fisher=FALSE,correct=FALSE,Overall=FALSE,smd=FALSE)
 }
 \arguments{
 \item{vars}{The full range of variables you don't want to compare.}
@@ -35,6 +35,8 @@ statistic=F,atotest=T,NormalTest=NULL,fisher=FALSE,correct=FALSE,Overall=FALSE)
 \item{correct}{Chi square test for continuity correction.The default is FALSE.}
 
 \item{Overall}{Generate summary data.The default is FALSE.}
+
+\item{smd}{The default is FALSE. If it is true, return the SMD value.}
 }
 \value{
 A data frame.
@@ -61,6 +63,7 @@ strata<-"race"
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE,Overall=TRUE)
+out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE,Overall=TRUE,smd=TRUE)
 print(out)
 
 ###Stratified variables are continuous variables.
@@ -69,7 +72,7 @@ fvars<-c("smoke","ht","ui","race")
 strata<-"age"
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc)
 out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE)
-out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE,Overall=TRUE)
+out<-scitb1(vars=allVars,fvars=fvars,strata=strata,data=bc,statistic=TRUE,Overall=TRUE,smd=TRUE)
 print(out)
 
 }

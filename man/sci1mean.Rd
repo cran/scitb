@@ -23,6 +23,8 @@
 \item{NormalTest}{A method for detecting whether data is normally distributed.The default values are Kolmogorov Smirnov test and Kolmogorov Smirnov test.Other options are: "ad", "cvm", "pearson".}
 
 \item{Overall}{Generate summary data.The default is FALSE.}
+
+\item{smd}{The default is FALSE. If it is true, return the SMD value.}
 }
 \value{
 A data frame.

@@ -21,6 +21,8 @@
 \item{correct}{Chi square test for continuity correction.The default is FALSE.}
 
 \item{Overall}{Generate summary data.The default is FALSE.}
+
+\item{smd}{The default is FALSE. If it is true, return the SMD value.}
 }
 \value{
 A data frame.
