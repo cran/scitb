@@ -1,7 +1,7 @@
 Package: scitb
 Type: Package
 Title: Provides Some Useful Functions for Making Statistical Tables
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: person("Qiang", "Liu", email = "dege857@163.com",
                   role = c("aut", "cre"))
 Maintainer: Qiang Liu <dege857@163.com>
@@ -18,7 +18,7 @@ Depends: R (>= 3.50)
 RoxygenNote: 7.2.1
 Imports: ggplot2, MASS, nortest, reshape2, stringi
 NeedsCompilation: no
-Packaged: 2023-12-22 03:47:59 UTC; Administrator
+Packaged: 2024-06-03 03:21:33 UTC; liu
 Author: Qiang Liu [aut, cre]
 Repository: CRAN
-Date/Publication: 2023-12-22 05:50:02 UTC
+Date/Publication: 2024-06-03 03:40:03 UTC

@@ -1,8 +1,9 @@
-240eb6f090067f9c209fea32dcbfb79d *DESCRIPTION
-b4a130565eb32f7edef7321fd1c4d5fa *NAMESPACE
+80a31428cf085baefa9fcf42b4af53d7 *DESCRIPTION
+7ea518c236f47452cdae3fa913937e98 *NAMESPACE
 ad5f6a052b0bab62d9b0cd1305ee626d *NEWS.md
 fce687caebc6c398aac78f699aacee4c *R/average.R
 14f9921a065a6c89e83b9ec36d9d3152 *R/code.R
+bd52e6212f84bafad8c3c695df1a4e0b *R/confnterval.R
 bc5edcd3407871997d8c7bf85fe459d8 *R/mxmax.R
 aeed01e6baebc14de102c7b975c3b92b *R/mxmedian.R
 8b2e6cf4dbe209c5096368aa5ee5be72 *R/mxmin.R
@@ -29,8 +30,9 @@ a0c6cb3851e58e26c7441af79acdaa76 *R/sciStdDiffMulti.R
 7cc10365cc78d0a68dbd7bfa81e2f58c *R/stderr.R
 40690ca33c512c9bc502aa1532a16c9a *R/stdev.R
 3e01c493c14ee812a0d84c87a1782806 *README.md
-afbe4209b3bb961ba3e41cbfe79ea507 *build/partial.rdb
+24bc7c3f5a645905c53152bd3d0b8f61 *build/partial.rdb
 aa2e21fe1be0564b53ca77e236770919 *data/prematurity.rda
+d516dff2c8ffee6c7a79b956decc8f71 *man/confnterval.Rd
 3306b97f68ca997d659adb816a685516 *man/plotsmd.Rd
 4a30cdd4090b22d83999255eb1ecfc69 *man/prematurity.Rd
 e5c98ca0983ce5b878499fa675e78d02 *man/sci1freq.Rd
