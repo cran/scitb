@@ -1,9 +1,11 @@
-80a31428cf085baefa9fcf42b4af53d7 *DESCRIPTION
+44b982bffee87329fedc7c3871e2d4f8 *DESCRIPTION
 7ea518c236f47452cdae3fa913937e98 *NAMESPACE
 ad5f6a052b0bab62d9b0cd1305ee626d *NEWS.md
+c1fea57181ae1d20268f5e6ba876d8a6 *R/Maddala.Cox.Snell.R
 fce687caebc6c398aac78f699aacee4c *R/average.R
 14f9921a065a6c89e83b9ec36d9d3152 *R/code.R
 bd52e6212f84bafad8c3c695df1a4e0b *R/confnterval.R
+822fb673b1d74bb7e9e9ea5dbf194966 *R/modeldata.R
 bc5edcd3407871997d8c7bf85fe459d8 *R/mxmax.R
 aeed01e6baebc14de102c7b975c3b92b *R/mxmedian.R
 8b2e6cf4dbe209c5096368aa5ee5be72 *R/mxmin.R
