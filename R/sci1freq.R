@@ -77,7 +77,10 @@ sci1freq<- function(mvars,x,data,dec,nonnormal=NULL,statistic=NULL,fisher=NULL,
       d2<-c(mvars[i],"",rep(" ",times=n.x),sv1,pp1)
     } else if (statistic==T){
       d2<-c(mvars[i],rep(" ",times=n.x),sv1,pp1)
-    } else {d2<-c(mvars[i],rep(" ",times=n.x),pp1)}
+    } else if (Overall==T) {
+      d2<-c(mvars[i],"",rep(" ",times=n.x),pp1)
+    } else {d2<-c(mvars[i],rep(" ",times=n.x),pp1)
+    }
     if (smd==T) {
       n.f<-length(levels(factor(varsdt[,i])))
       d2<-c(d2,smds)

@@ -1,7 +1,7 @@
-44b982bffee87329fedc7c3871e2d4f8 *DESCRIPTION
-7ea518c236f47452cdae3fa913937e98 *NAMESPACE
+cb38d8df396e34749082bc7654090386 *DESCRIPTION
+1b010f82a07a2c07d670288a939b249b *NAMESPACE
 ad5f6a052b0bab62d9b0cd1305ee626d *NEWS.md
-c1fea57181ae1d20268f5e6ba876d8a6 *R/Maddala.Cox.Snell.R
+8c78fffba0d37af6cc99c2c68a1ccb99 *R/Maddala.Cox.Snell.R
 fce687caebc6c398aac78f699aacee4c *R/average.R
 14f9921a065a6c89e83b9ec36d9d3152 *R/code.R
 bd52e6212f84bafad8c3c695df1a4e0b *R/confnterval.R
@@ -20,7 +20,7 @@ f14d996fbca7b8a21f83ef5fe65cb122 *R/plotsmd.R
 456d7170b005384df57b095d0a3c673b *R/prematurity.R
 d15f5e55099fcbc528c0ab6dc33b0909 *R/pvformat.R
 1b1b16cb057d87cd00aa3ebfa3c132f4 *R/rankvar.R
-acd282f3ce5238111f6f458029dd1067 *R/sci1freq.R
+d51047b748f5bf318fc2c9e86eecf7ba *R/sci1freq.R
 e74692cada227e116e1b57cf8468adbb *R/sci1mean.R
 a80251411a6f2c4b103b8f23a593e53c *R/sciLstMeansFromFullTable.R
 73eddc2972cb019f8fd17f615b66fc33 *R/sciMultinomialVar.R
@@ -34,6 +34,7 @@ a0c6cb3851e58e26c7441af79acdaa76 *R/sciStdDiffMulti.R
 3e01c493c14ee812a0d84c87a1782806 *README.md
 24bc7c3f5a645905c53152bd3d0b8f61 *build/partial.rdb
 aa2e21fe1be0564b53ca77e236770919 *data/prematurity.rda
+e111fd8de125a323d6e5da6c1d4a8338 *man/Maddala.Cox.Snell.Rd
 d516dff2c8ffee6c7a79b956decc8f71 *man/confnterval.Rd
 3306b97f68ca997d659adb816a685516 *man/plotsmd.Rd
 4a30cdd4090b22d83999255eb1ecfc69 *man/prematurity.Rd
