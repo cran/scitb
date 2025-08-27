@@ -92,10 +92,10 @@ sci1mean<- function(mvars,x,data,dec,nonnormal=NULL,type=NULL,statistic=NULL,
   }
   varnames<-paste(x,".",levels(factor(xvt)),sep="")
   if (Overall==FALSE) {
-    dd<-rbind(scinn,d0)
+    dd<-rbind(table(xvt),d0)
   } else if (Overall==TRUE) {
     d0<-cbind(o.dd,d0)
-    scinn<-c(o.n,scinn)
+    scinn<-c(o.n,table(xvt))
     dd<-rbind(scinn,d0)
     varnames<-c("Overall",varnames)
   } else {

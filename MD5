@@ -1,4 +1,4 @@
-cb38d8df396e34749082bc7654090386 *DESCRIPTION
+7f34b8cd646862c42ceaa8e202b9b5ea *DESCRIPTION
 1b010f82a07a2c07d670288a939b249b *NAMESPACE
 ad5f6a052b0bab62d9b0cd1305ee626d *NEWS.md
 8c78fffba0d37af6cc99c2c68a1ccb99 *R/Maddala.Cox.Snell.R
@@ -21,7 +21,7 @@ f14d996fbca7b8a21f83ef5fe65cb122 *R/plotsmd.R
 d15f5e55099fcbc528c0ab6dc33b0909 *R/pvformat.R
 1b1b16cb057d87cd00aa3ebfa3c132f4 *R/rankvar.R
 d51047b748f5bf318fc2c9e86eecf7ba *R/sci1freq.R
-e74692cada227e116e1b57cf8468adbb *R/sci1mean.R
+0cea05b2574d5547c929c3a0a1f60e69 *R/sci1mean.R
 a80251411a6f2c4b103b8f23a593e53c *R/sciLstMeansFromFullTable.R
 73eddc2972cb019f8fd17f615b66fc33 *R/sciMultinomialVar.R
 91dd4b4fef3d2c76b38d836e3799dacc *R/sciStdDiff.R
